@@ -335,7 +335,6 @@ describe('loader', () => {
 						fileContents,
 						null
 				);
-
 			});
 		});
 	});

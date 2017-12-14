@@ -36,12 +36,13 @@ module.exports = function(source, map) {
 		let { code, map, css, cssMap } = compile(processed.toString(), options);
 
 		if (options.emitCss && css) {
-			const tmpobj = fileSync({ postfix: '.css' });
+			const tmpobj = fileSync({ mode: 0o666, postfix: '.css' });
 			css += '\n/*# sourceMappingURL=' + cssMap.toUrl() + '*/';
 			code = code + `\nrequire('${tmpobj.name}');\n`;
 
 			writeFileSync(tmpobj.name, css);
 			const stats = statSync(tmpobj.name);
+			console.log(stats);
 			utimesSync(tmpobj.name, stats.atimeMs - 9999, stats.mtimeMs - 9999);
 		}
 
